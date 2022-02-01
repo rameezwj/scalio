@@ -8,7 +8,7 @@ import {DummyContext} from './context/DummyContext.js';
 
 const App = ()=>{
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
 
   return (

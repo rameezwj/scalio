@@ -10,8 +10,12 @@ const Result = (props)=>{
 	let dataTable_users = {
 		'columns': [
 		{
-       name: 'Avatar URL',
-       selector: row => row.avatar,
+			name: 'Avatar URL',
+			selector: row => row.avatar,
+    },
+    {
+      name: 'Image',
+      selector: row => row.image,
     },
     {
       name: 'Login',
@@ -27,7 +31,7 @@ const Result = (props)=>{
 
 	if(users.items){
 		dataTable_users.rows = users.items.map((v,i)=>{
-			return {'avatar' : v.avatar_url, 'login' : <div><img src={v.avatar_url} /> {v.login}</div>, 'type' : v.type}
+			return {'avatar' : v.avatar_url, 'image' : <img src={v.avatar_url} />, 'login' : v.login, 'type' : v.type}
 		})
 	}
 

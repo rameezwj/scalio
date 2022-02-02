@@ -5,36 +5,45 @@ import {DummyContext} from '../../context/DummyContext.js';
 import './search.scss';
 
 
-function Search(props){
+const Search = (props)=>{
 
-	const {loading, setLoading, setUsers} = useContext(DummyContext);
-  const [query, setQuery] = useState('');
+	let {loading, setLoading, query, setQuery, setUsers} = useContext(DummyContext);
   
   React.useEffect(() => {
   	console.log(loading);
   }, []);
 
-  const fnSearch = async(query)=>{
+  const fnSearch = async()=>{
 
-  	if(!query)
+  	// return if user hasnt entered anything to search
+  	if(!query){
+  		setUsers([]);
   		return;
+  	}
 
-    let res = await axios.get(`https://api.github.com/search/users?q=${query}&:mozilla&per_page=5`)
+  	// enable loader if theres anything to search
+  	setLoading(true);
 
-    setUsers(res.data);
-    // console.log(res.data, 'sssssss');
+  	// make the request
+    let userResponse = await axios.get(`https://api.github.com/search/users?q=${query}&:mozilla`);
 
-    // setQuery(e.target.value);
-  	// console.log(query);
-  }
+  	setUsers(userResponse.data);
+
+    // disable the loader
+  	setLoading(false);
+ }
 
 
 	return(
-		<div className="search_wrapper widthb100 df jcc">
-			<div className="df jcc aic">
-				<input type="text" onChange={
-					(e)=>{ setQuery(e.target.value); }} />
-				<Button btnAttr={{'text': 'Search', 'click': ()=>{ fnSearch(query); } }} />
+		<div className="search_wrapper widthb100 df jcc p2">
+			<div className="df jcse aic widthb50">
+				<input
+					type="text"
+					placeholder="Enter something to search..."
+					className="widthb80"
+					onChange={ (e)=>{ setQuery(e.target.value.trim()); }}
+				/>
+				<Button btnAttr={{'text': 'Search', 'click': ()=>{ fnSearch(); } }} />
 			
 			</div>
 

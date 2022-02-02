@@ -2,9 +2,16 @@ import styled from 'styled-components'
 
 const StyledButton = styled.button`
 	padding: 10px 20px;
-	border: 1px solid #ccc;
-	background: #f3f3f3;
-	border-radius: 5px;
+	background: #000;
+	color: #fff;
+	border-radius: 100px;
+	cursor: pointer;
+	transition: all .2s linear;
+
+	&:hover {
+    background: #646464;
+    color: #fff;
+  }
 `;
 
 const Button = (props)=>{
